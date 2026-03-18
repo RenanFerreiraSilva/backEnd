@@ -6,7 +6,7 @@ import { v4 as uuidv4} from 'uudi';
 const app = express();
 app.use(express.json())
 app.use(cors());
-const port = 7770;
+const port = process.env.PORT || 7770;
 
 const users = [
     { id: uuidv4(), name: "Alice", available: true },
