@@ -9,10 +9,10 @@ app.use(cors());
 const port = 7770;
 
 const users = [
-    { id: 1, name: "Alice", available: true },
-    { id: 2, name: "Bob", available: false },
-    { id: 3, name: "Carol", available: true },
-    { id: 4, name: "Paulo", available: false },
+    { id: uuidv4(), name: "Alice", available: true },
+    { id: uuidv4(), name: "Bob", available: false },
+    { id: uuidv4(), name: "Carol", available: true },
+    { id: uuidv4(), name: "Paulo", available: false },
 ];
 
 
@@ -33,7 +33,7 @@ app.post('/users', (request, response) => {
     }
 
     const newUser = {
-        id: users.length + 1,
+        id: uuidv4(),
         name,
         available: available ?? true
     };
@@ -47,21 +47,14 @@ app.put('/users/:id', (request, response) => {
 
     const { name, available } = request.body;
 
-    const usuarioEncontrado = users.find(user => user.id === parseInt(id));
+    const usuarioEncontrado = users.find(user => user.id === id);
 
     if (!usuarioEncontrado) {
         return response.status(404).json({ message: "Usuario nao encontrado" });
     };
 
-    // usuarioEncontrado.name = name;
-    // usuarioEncontrado.available = available;
-
-    const updates = request.body;
-    Object.keys(updates).forEach(key => {
-        if (key in usuarioEncontrado) {
-            usuarioEncontrado[key] = updates[key];
-        }
-    });
+    usuarioEncontrado.name = name;
+    usuarioEncontrado.available = available;
 
     response.json({ message: "Usuario atualizado com sucesso", user: usuarioEncontrado });
 });
@@ -96,7 +89,7 @@ app.put('/endereco/:id', (request, response) => {
     const { id } = request.params;
     const { nome, preco } = request.body;
 
-    const idEncontrado = viagens.find(viagem => viagem.id === parseInt(id));
+    const idEncontrado = viagens.find(viagem => viagem.id === id);
 
     if (!idEncontrado) {
         return response.status(404).json({ message: 'Viagem nao encontrada' });
