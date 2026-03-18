@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import bcrypt from "bcrypt";
-import { v4 as uuidv4 } from 'uudi';
+import { v4 as uuidv4 } from 'uuid';
 
 const app = express();
 app.use(express.json())
@@ -159,6 +159,9 @@ app.delete('/viagens/:id', (request, response) => {
     response.status(200).json({ message: "Viagem removida com sucesso!", viagem: deleteViagem });
 });
 
+
+
+
 const adminUsers = []
 
 app.post('/signup', async (request, response) => {
@@ -167,7 +170,7 @@ app.post('/signup', async (request, response) => {
 
         const hashPassword = await bcrypt.hash(password, 5);
 
-        const existinUser = adminUsers.find(user => user.username === username);
+        const existinUser = adminUsers.find(user => user.email === email);
 
         if (existinUser) {
             return response.status(400).json({ message: "Usuário já cadastrado!" });
