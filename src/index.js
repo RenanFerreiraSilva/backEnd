@@ -109,7 +109,7 @@ app.post('/endereco', (request, response) => {
     };
 
     const novaViagem = {
-        id: viagens.length + 1,
+        id: uuidv4(),
         nome,
         preco,
         qtdPromo
