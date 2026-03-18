@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import bcrypt from "bcrypt";
-import { v4 as uuidv4} from 'uudi';
+import { v4 as uuidv4 } from 'uudi';
 
 const app = express();
 app.use(express.json())
